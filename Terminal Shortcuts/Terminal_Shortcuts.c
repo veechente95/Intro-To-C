@@ -37,6 +37,7 @@ nano programName.c    // You can edit and save C file directly from terminal
 sudo apt-get install ssmtp          // download ssmtp library
 sudo apt-get install mailutils      // download mailutils library
 sudo nano /etc/ssmtp/ssmtp.conf     // config file for gmail (add theses, exit and save --> root=username@gmail.com, AuthUser=username@gmail.com, AuthPass=password, UseSTARTTLS=YES)
+sudo chmod 640 /etc/ssmtp/ssmtp.conf  // set file permission
 echo "This is the body of the email" | mail -s "Subject" recipient@example.com      // Compose and send email
 
 
