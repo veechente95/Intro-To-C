@@ -1,63 +1,64 @@
-# 1) Write a python script that could take an array of a file as an input
-# 2) Sort it
-# 3) Calculate the mean
-# 4) Calculate median
-# 5) Calculate standard deviation without using built-in library functions beside square root.
+# 1 - Write a python script that could take an array of a file as an input
+# 2 - Sort it
+# 3 - Calculate the mean
+# 4 - Calculate median
+# 5 - Calculate standard deviation without using built-in library functions beside square root.
 
-import math
-
+import math 
 
 def read_array_from_file(filename):
-    with open(filename, 'r') as file:
-        content = file.read()
-        split_content = content.split()
-        array = [int(x) for x in split_content]
+    with open(filename, 'r') as file:   # reads file using 'r'
+        content = file.read()   # reads contents of file
+        split_content = content.split(',')   # splits into list of strings using ','
+        array = [float(x) for x in split_content]   # Converts each string in the list to an integer and create a new list
     return array
 
 
-# def bubble_sort(arr):
-#     n = len(arr)
-#     for i in range(n):
-#         for j in range(0, n-i-1):
-#             if arr[j] > arr[j+1]:
-#                 arr[j], arr[j+1] = arr[j+1], arr[j]
-#     return arr
-#
-#
-# def calculate_mean(arr):
-#     return sum(arr) / len(arr)
-#
-#
-# def calculate_median(arr):
-#     n = len(arr)
-#     if n % 2 == 0:
-#         mid1 = arr[n//2]
-#         mid2 = arr[n//2 - 1]
-#         median = (mid1 + mid2) / 2
-#     else:
-#         median = arr[n//2]
-#     return median
-#
-# def calculate_standard_deviation(arr, mean):
-#     squared_diff_sum = sum((x - mean) ** 2 for x in arr)
-#     variance = squared_diff_sum / len(arr)
-#     std_dev = math.sqrt(variance)
-#     return std_dev
-#
-#
-# # Replace 'your_file.txt' with the actual file name
-# file_array = read_array_from_file('your_file.txt')
-#
-# # Sort the array
-# sorted_array = bubble_sort(file_array)
-#
-# # Calculate mean, median, and standard deviation
-# mean_value = calculate_mean(sorted_array)
-# median_value = calculate_median(sorted_array)
-# std_dev_value = calculate_standard_deviation(sorted_array, mean_value)
-#
-# # Print the results
-# print(f"Sorted Array: {sorted_array}")
-# print(f"Mean: {mean_value}")
-# print(f"Median: {median_value}")
-# print(f"Standard Deviation: {std_dev_value}")
+def sort_array(array):   # uses array as input
+    sorted_array = sorted(array)   # sorts array using sorted()
+    return sorted_array
+
+
+def calculate_mean(array):
+    mean = sum(array) / len(array)   # mean = sum of numbers / number of nums
+    return mean
+
+
+def calculate_median(array):
+    sorted_array = sort_array(array)   # call sort_array func from above
+    array_len = len(sorted_array)   # counts num of arrays
+    
+    # If the array length is even, take the average of the middle two elements
+    if array_len % 2 == 0:
+        middle1 = sorted_array[array_len // 2 - 1]   # gets element before middle
+        middle2 = sorted_array[array_len // 2]   # gets element at the middle
+        median = (middle1 + middle2) / 2   # gets average of middle elements
+    else:
+        # If the length is odd, take the middle element
+        median = sorted_array[array_len // 2]   # gets middle element 
+
+    return median
+
+def calculate_standard_deviation(array):
+    mean = calculate_mean(array)
+    n = len(array)
+    sum_squared_diff = sum((x - mean) ** 2 for x in array)   # Calculate the sum of squared differences from the mean
+    variance = sum_squared_diff / n   # Calculate the variance
+    standard_deviation = math.sqrt(variance)   # Calculate the standard deviation as the square root of the variance
+
+    return standard_deviation
+
+
+# Example usage:
+filename = '/path/to/file/file_name'
+input_array = read_array_from_file(filename)
+sorted_array = sort_array(input_array)
+mean_value = calculate_mean(input_array)
+median_value = calculate_median(input_array)
+std_deviation_value = calculate_standard_deviation(input_array)
+
+print("Input Array:", input_array)
+print("Sorted Array:", sorted_array)
+print("Mean:", mean_value)
+print("Median:", median_value)
+print("Standard Deviation:", std_deviation_value)
